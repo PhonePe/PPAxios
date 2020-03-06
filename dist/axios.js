@@ -983,15 +983,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      delete requestHeaders['Content-Type']; // Let the browser set it
 	    }
 	
-	    var request = new XMLHttpRequest();
+	    var request;
+	
+	    var requestInitParams = {};
 	
 	    if (config.mozSystem) {
-	    	request.mozSystem = config.mozSystem;
+	      requestInitParams.mozSystem = config.mozSystem;
 	    }
 	
 	    if (config.mozAnon) {
-	    	request.mozAnon = config.mozAnon;
+	      requestInitParams.mozAnon = config.mozAnon;
 	    }
+	
+	    request = new XMLHttpRequest(requestInitParams);
 	
 	    // HTTP basic authentication
 	    if (config.auth) {
