@@ -983,7 +983,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      delete requestHeaders['Content-Type']; // Let the browser set it
 	    }
 	
-	    var request = new XMLHttpRequest();
+	    var request;
+	
+	    var requestInitParams = {};
+	
+	    if (config.mozSystem) {
+	      requestInitParams.mozSystem = config.mozSystem;
+	    }
+	
+	    if (config.mozAnon) {
+	      requestInitParams.mozAnon = config.mozAnon;
+	    }
+	
+	    request = new XMLHttpRequest(requestInitParams);
 	
 	    // HTTP basic authentication
 	    if (config.auth) {
@@ -1227,7 +1239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  error.response = response;
 	  error.isAxiosError = true;
 	
-	  error.toJSON = function() {
+	  error.toJSON = function toJSON() {
 	    return {
 	      // Standard
 	      message: this.message,
@@ -1528,14 +1540,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  config2 = config2 || {};
 	  var config = {};
 	
-	  var valueFromConfig2Keys = ['url', 'method', 'params', 'data'];
-	  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy'];
+	  var valueFromConfig2Keys = ['url', 'method', 'data'];
+	  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
 	  var defaultToConfig2Keys = [
 	    'baseURL', 'url', 'transformRequest', 'transformResponse', 'paramsSerializer',
 	    'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
 	    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress',
 	    'maxContentLength', 'validateStatus', 'maxRedirects', 'httpAgent',
-	    'httpsAgent', 'cancelToken', 'socketPath'
+	    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
 	  ];
 	
 	  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
